@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+}
+
+group = 'cbpg.demo'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    compileOnly 'org.keycloak:keycloak-core:20.0.1'
+    compileOnly 'org.keycloak:keycloak-server-spi:20.0.1'
+    compileOnly 'org.keycloak:keycloak-server-spi-private:20.0.1'
+    compileOnly 'org.keycloak:keycloak-services:20.0.1'
+    compileOnly 'org.keycloak:keycloak-ldap-federation:20.0.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+    sourceCompatibility = '11'
+    targetCompatibility = '11'
+    options.encoding = 'UTF-8'
+}

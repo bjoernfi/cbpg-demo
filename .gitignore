@@ -1,0 +1,5 @@
+.env
+.keycloak/
+.keycloak-db/
+.ldap/
+.mongo

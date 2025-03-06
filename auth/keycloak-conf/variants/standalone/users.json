@@ -1,0 +1,18 @@
+{
+    "users": [
+        {
+            "username": "turing",
+            "enabled": true,
+            "emailVerified": true,
+            "firstName": "Alan",
+            "lastName": "Turing",
+            "email": "turing@cbpg.demo",
+            "credentials": [
+                {
+                    "type": "password",
+                    "value": "turing"
+                }
+            ]
+        }
+    ]
+}
