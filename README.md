@@ -14,20 +14,19 @@ The repository consists of the following components:
 
 ## Setup
 
-1. Install and configure Docker
+1. Install Docker
 2. Copy the example configuration: `cp .env.example .env`
 3. Run `./setup.sh`
 
-You can then choose between two compose configurations:
+You can then choose between two compose configurations. In the standalone configuration, users are managed in Keycloak. In the OpenLDAP configuration, users are managed in OpenLDAP and synchronized with Keycloak.
 
-1. Standalone: Users are managed in Keycloak. Run with `docker compose up`.
-2. OpenLDAP: Users are managed in OpenLDAP and synchronized with Keycloak. Run
-   `docker compose -f docker-compose.yml -f docker-compose.openldap.yml up`.
+* Standalone: Run `docker compose up`.
+* OpenLDAP: Run `docker compose -f docker-compose.yml -f docker-compose.openldap.yml up`.
 
 Unfortunately, Microsoft's Active Directory (MSAD) cannot be easily mocked with Docker. We have provided a simplified version of the [Keycloak configuration](auth/keycloak-conf/variants/msad) that is used at [RheinMain University of Applied Sciences](https://www.hs-rm.de/en/). This may require some tweaking, as the directory layout will probably not match the layout of your university.
 
 ## Plugin Usage
-To install the plugin, navigate to `File` -> `Settings` -> `Plugins` -> `⚙` -> `Manage Plugin Repositories`. Then, enter the url of the plugin repository ([`https://localhost:8443/`](https://localhost:8443)) and restart IntelliJ. After restarting, you should see the plugin menu in the top right corner after opening a project:
+To install the plugin, navigate to `File` -> `Settings` -> `Plugins` -> `⚙` -> `Manage Plugin Repositories`. Add the url of the plugin repository ([`https://localhost:8443/`](https://localhost:8443)), click `OK`, and search for the plugin (`CBPG Demo Plugin`). After installing, you should see the plugin menu in the top right corner:
 
 ![](menu.png)
 
@@ -44,7 +43,7 @@ Depending on the configuration you use, passwords can be changed through [phpLDA
 | Service | URL |
 | ------- | ---- |
 | Plugin Repository | https://localhost:8443/ |
-| Backend | https://localhost:8081/ |
+| Backend | http://localhost:8081/ |
 | phpLDAPadmin | http://localhost:8082/ |
 | Keycloak | http://localhost:8080/ |
 | Mongo Express | http://localhost:8083/ |
