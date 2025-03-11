@@ -17,22 +17,27 @@ import java.util.concurrent.RunnableFuture;
 public final class AuthGuard {
     private static final Logger LOG = Logger.getInstance(AuthGuard.class);
 
-    private final List<RetryHandler> retryHandlers = List.of(
-        new SessionExpiredRetryHandler(),
-        new NoConsentRetryHandler()
-    );
-
     public static AuthGuard getInstance() {
         return ApplicationManager.getApplication().getService(AuthGuard.class);
     }
 
     public synchronized AuthContext refreshAuthentication() {
+        var retryHandlers = List.of(
+                new SessionExpiredRetryHandler(),
+                new NoConsentRetryHandler()
+        );
+
+        return refreshAuthentication(retryHandlers);
+    }
+
+    private AuthContext refreshAuthentication(List<RetryHandler> retryHandlers) {
         try {
-            LOG.debug("performCheck");
+            LOG.debug("refreshAuthentication");
             var authService = AuthService.getInstance();
             return authService.requestRefresh(true);
         } catch (Exception ex) {
-            var handler = retryHandlers.stream().filter(g -> g.canHandle(ex)).findFirst()
+            var handler = retryHandlers.stream().filter(g -> g.canHandle(ex))
+                .findFirst()
                 .orElse(null);
             if (handler == null) {
                 LOG.debug("No retry handler found for exception %s".formatted(ex.getClass().toString()));
@@ -42,7 +47,7 @@ public final class AuthGuard {
             var shouldRetry = runSynchronouslyOnEDT(handler::shouldRetry);
             LOG.debug("shouldRetry=%s according to handler %s".formatted(shouldRetry, handler.getClass().toString()));
             if (shouldRetry) {
-                return refreshAuthentication();
+                return refreshAuthentication(retryHandlers);
             }
 
             throw new RetryCancelException();
