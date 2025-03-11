@@ -1,9 +1,9 @@
 # cbpg-demo
-Reference implementation of **Credential-Based Pseudonym Generation**, a
+Reference implementation of Credential-Based Pseudonym Generation, a
 pseudonymization technique for privacy-preserving collection of programming process data. 
 
 > [!NOTE]
-> This repository contains supplementary material to the following paper:
+> This repository contains supplementary material of the following paper: 
 > ...
 
 The repository consists of the following components:
