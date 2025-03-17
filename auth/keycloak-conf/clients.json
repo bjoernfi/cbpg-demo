@@ -1,0 +1,33 @@
+{
+    "clients": [
+        {
+            "clientId": "cbpg-demo-plugin",
+            "name": "CBPG Demo Plugin",
+            "description": "",
+            "rootUrl": "",
+            "adminUrl": "",
+            "baseUrl": "",
+            "clientAuthenticatorType": "client-secret",
+            "consentRequired": false,
+            "standardFlowEnabled": true,
+            "directAccessGrantsEnabled": true,
+            "implicitFlowEnabled": false,
+            "publicClient": true,
+            "protocol": "openid-connect",
+            "defaultClientScopes": [
+                "web-origins",
+                "acr",
+                "profile",
+                "roles",
+                "email",
+                "consent"
+            ],
+            "optionalClientScopes": [
+                "address",
+                "phone",
+                "offline_access",
+                "microprofile-jwt"
+            ]
+        }
+    ]
+}

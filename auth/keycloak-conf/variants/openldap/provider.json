@@ -1,0 +1,247 @@
+{
+    "components": {
+        "org.keycloak.storage.UserStorageProvider": [
+            {
+                "id": "demo",
+                "name": "Demo OpenLDAP",
+                "providerId": "ldap",
+                "subComponents": {
+                    "org.keycloak.storage.ldap.mappers.LDAPStorageMapper": [
+                        {
+                            "name": "TokenInvalidationLDAP",
+                            "providerId": "cbpg-token-inv-ldap-mapper",
+                            "subComponents": {}
+                        },
+                        {
+                            "name": "username",
+                            "providerId": "user-attribute-ldap-mapper",
+                            "subComponents": {},
+                            "config": {
+                                "ldap.attribute": [
+                                    "cn"
+                                ],
+                                "is.mandatory.in.ldap": [
+                                    "true"
+                                ],
+                                "read.only": [
+                                    "true"
+                                ],
+                                "always.read.value.from.ldap": [
+                                    "false"
+                                ],
+                                "user.model.attribute": [
+                                    "username"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "email",
+                            "providerId": "user-attribute-ldap-mapper",
+                            "subComponents": {},
+                            "config": {
+                                "ldap.attribute": [
+                                    "mail"
+                                ],
+                                "is.mandatory.in.ldap": [
+                                    "false"
+                                ],
+                                "always.read.value.from.ldap": [
+                                    "false"
+                                ],
+                                "read.only": [
+                                    "true"
+                                ],
+                                "user.model.attribute": [
+                                    "email"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "modify date",
+                            "providerId": "user-attribute-ldap-mapper",
+                            "subComponents": {},
+                            "config": {
+                                "ldap.attribute": [
+                                    "modifyTimestamp"
+                                ],
+                                "is.mandatory.in.ldap": [
+                                    "false"
+                                ],
+                                "read.only": [
+                                    "true"
+                                ],
+                                "always.read.value.from.ldap": [
+                                    "true"
+                                ],
+                                "user.model.attribute": [
+                                    "modifyTimestamp"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "First Name",
+                            "providerId": "user-attribute-ldap-mapper",
+                            "subComponents": {},
+                            "config": {
+                                "ldap.attribute": [
+                                    "givenName"
+                                ],
+                                "is.mandatory.in.ldap": [
+                                    "false"
+                                ],
+                                "attribute.force.default": [
+                                    "true"
+                                ],
+                                "is.binary.attribute": [
+                                    "false"
+                                ],
+                                "read.only": [
+                                    "true"
+                                ],
+                                "always.read.value.from.ldap": [
+                                    "false"
+                                ],
+                                "user.model.attribute": [
+                                    "firstName"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "creation date",
+                            "providerId": "user-attribute-ldap-mapper",
+                            "subComponents": {},
+                            "config": {
+                                "ldap.attribute": [
+                                    "createTimestamp"
+                                ],
+                                "is.mandatory.in.ldap": [
+                                    "false"
+                                ],
+                                "always.read.value.from.ldap": [
+                                    "true"
+                                ],
+                                "read.only": [
+                                    "true"
+                                ],
+                                "user.model.attribute": [
+                                    "createTimestamp"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "last name",
+                            "providerId": "user-attribute-ldap-mapper",
+                            "subComponents": {},
+                            "config": {
+                                "ldap.attribute": [
+                                    "sn"
+                                ],
+                                "is.mandatory.in.ldap": [
+                                    "true"
+                                ],
+                                "always.read.value.from.ldap": [
+                                    "true"
+                                ],
+                                "read.only": [
+                                    "true"
+                                ],
+                                "user.model.attribute": [
+                                    "lastName"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "config": {
+                    "fullSyncPeriod": [
+                        "-1"
+                    ],
+                    "pagination": [
+                        "false"
+                    ],
+                    "startTls": [
+                        "false"
+                    ],
+                    "connectionPooling": [
+                        "false"
+                    ],
+                    "usersDn": [
+                        "$(env:LDAP_USERS_DN)"
+                    ],
+                    "cachePolicy": [
+                        "DEFAULT"
+                    ],
+                    "useKerberosForPasswordAuthentication": [
+                        "false"
+                    ],
+                    "importEnabled": [
+                        "true"
+                    ],
+                    "changedSyncPeriod": [
+                        "900"
+                    ],
+                    "usernameLDAPAttribute": [
+                        "cn"
+                    ],
+                    "bindCredential": [
+                        "$(env:LDAP_BIND_PASSWORD)"
+                    ],
+                    "bindDn": [
+                        "$(env:LDAP_BIND_DN)"
+                    ],
+                    "lastSync": [
+                        "0"
+                    ],
+                    "vendor": [
+                        "other"
+                    ],
+                    "uuidLDAPAttribute": [
+                        "entryUUID"
+                    ],
+                    "connectionUrl": [
+                        "$(env:LDAP_CONNECTION_URL)"
+                    ],
+                    "allowKerberosAuthentication": [
+                        "false"
+                    ],
+                    "syncRegistrations": [
+                        "false"
+                    ],
+                    "authType": [
+                        "simple"
+                    ],
+                    "connectionTimeout": [
+                        "20000"
+                    ],
+                    "searchScope": [
+                        "2"
+                    ],
+                    "useTruststoreSpi": [
+                       "ldapsOnly"
+                    ],
+                    "usePasswordModifyExtendedOp": [
+                        "false"
+                    ],
+                    "trustEmail": [
+                        "true"
+                    ],
+                    "userObjectClasses": [
+                        "inetOrgPerson, organizationalPerson"
+                    ],
+                    "rdnLDAPAttribute": [
+                        "cn"
+                    ],
+                    "editMode": [
+                        "UNSYNCED"
+                    ],
+                    "readTimeout": [
+                        "120000"
+                    ],
+                    "validatePasswordPolicy": [
+                        "false"
+                    ]
+                }
+            }
+        ]
+    }
+}

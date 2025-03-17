@@ -1,0 +1,77 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+  <!-- Product and plugin compatibility requirements.
+     Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+  <depends>com.intellij.modules.platform</depends>
+  <depends>com.intellij.modules.java</depends>
+  <!-- Extension points defined by the plugin.
+       Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+  <extensions defaultExtensionNs="com.intellij">
+    <postStartupActivity
+      implementation="cbpg.demo.plugin.progdata.InitializeDataCollectionActivity"/>
+    <postStartupActivity
+      implementation="cbpg.demo.plugin.progdata.event.PluginProjectOpenListener"/>
+
+    <applicationService
+      serviceInterface="cbpg.demo.plugin.common.config.ConfigService"
+      serviceImplementation="cbpg.demo.plugin.common.config.PropertiesConfigService"/>
+
+    <applicationService
+      serviceInterface="cbpg.demo.plugin.auth.provider.AuthProvider"
+      serviceImplementation="cbpg.demo.plugin.auth.provider.keycloak.KeycloakAuthProvider"/>
+
+    <applicationService
+      serviceInterface="cbpg.demo.plugin.progdata.event.persistence.EventStore"
+      serviceImplementation="cbpg.demo.plugin.progdata.event.persistence.H2EventStore"/>
+
+    <notificationGroup id="Demo Notifications"
+      displayType="BALLOON">
+    </notificationGroup>
+
+  </extensions>
+  <projectListeners>
+    <listener
+      class="cbpg.demo.plugin.progdata.event.PluginProjectCloseListener"
+      topic="com.intellij.openapi.project.ProjectCloseListener"/>
+    <listener
+      class="cbpg.demo.plugin.progdata.event.SessionAuthListener"
+      topic="cbpg.demo.plugin.auth.AuthListener"/>
+  </projectListeners>
+  <actions>
+
+    <!-- Main menu -->
+    <group id="cbpg.demo.plugin.MainMenuActionGroup"
+      class="cbpg.demo.plugin.MainMenuActionGroup"
+      text="Demo" popup="true">
+
+      <!-- old UI -->
+      <add-to-group group-id="ToolbarRunGroup" anchor="first"/>
+
+      <!-- new UI -->
+      <add-to-group group-id="ExecutionTargetsToolbarGroup" anchor="first"/>
+
+      <separator/>
+
+      <action id="cbpg.demo.plugin.progdata.upload.UploadAction"
+        class="cbpg.demo.plugin.progdata.upload.UploadAction"
+        text="Upload Data"
+        icon="AllIcons.Actions.EnableNewUi">
+      </action>
+
+      <action id="cbpg.demo.plugin.progdata.pseudonym.ShowPseudonymsAction"
+              class="cbpg.demo.plugin.progdata.pseudonym.ShowPseudonymsAction"
+              text="Show Pseudonyms"
+              icon="AllIcons.CodeWithMe.CwmInvite">
+      </action>
+
+      <separator/>
+      <action id="cbpg.demo.plugin.auth.login.LoginAction"
+              class="cbpg.demo.plugin.auth.login.LoginAction" text="Login"
+              icon="AllIcons.CodeWithMe.Users">
+      </action>
+      <action id="cbpg.demo.plugin.auth.logout.LogoutAction"
+              class="cbpg.demo.plugin.auth.logout.LogoutAction" text="Logout">
+      </action>
+    </group>
+  </actions>
+</idea-plugin>

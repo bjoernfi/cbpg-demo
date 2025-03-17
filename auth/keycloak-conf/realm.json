@@ -1,0 +1,31 @@
+{
+    "id": "demo",
+    "realm": "Demo",
+    "displayName": "CBPG Demo",
+    "enabled": true,
+    "registrationAllowed": true,
+    "rememberMe": true,
+    "loginWithEmailAllowed": true,
+    "accessTokenLifespan": 300,
+    "ssoSessionIdleTimeout": 14400,
+    "ssoSessionMaxLifespan": 216000,
+    "ssoSessionIdleTimeoutRememberMe": 216000,
+    "ssoSessionMaxLifespanRememberMe": 216000,
+    "bruteForceProtected": true,
+    "permanentLockout": false,
+    "maxFailureWaitSeconds": 900,
+    "minimumQuickLoginWaitSeconds": 60,
+    "waitIncrementSeconds": 60,
+    "quickLoginCheckMilliSeconds": 1000,
+    "maxDeltaTimeSeconds": 43200,
+    "failureFactor": 30,
+    "eventsListeners": [
+        "cbpg-token-inv-listener",
+        "jboss-logging"
+    ],
+    "internationalizationEnabled": true,
+    "supportedLocales": [
+        "en"
+    ],
+    "defaultLocale": "en"
+}

@@ -1,0 +1,27 @@
+# add root
+dn: dc=cbpg,dc=demo
+dc: cbpg
+objectClass: dcObject
+objectClass: organizationalUnit
+ou: cbpg
+
+# add OU "users"
+dn: ou=users,dc=cbpg,dc=demo
+objectClass: organizationalUnit
+ou: users
+
+# add a sample user
+dn: cn=turing,ou=users,dc=cbpg,dc=demo
+objectClass: inetOrgPerson
+cn: turing
+gn: Alan
+sn: Turing
+mail: turing@cbpg.demo
+
+# set password with "modify" so that pwdChangedTime is set.
+# this attribute is required by our keycloak extension to determine 
+# if the user's tokens should be invalidated
+dn: cn=turing,ou=users,dc=cbpg,dc=demo
+changetype: modify
+add: userPassword
+userPassword: turing

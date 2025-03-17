@@ -1,0 +1,40 @@
+services:
+  openldap:
+    image: bitnami/openldap:2.6.9
+    environment:
+      TZ: '${TZ}'
+      LDAP_ROOT: ${LDAP_ROOT}
+      LDAP_ADMIN_DN: ${LDAP_ADMIN_DN}
+      LDAP_ADMIN_USERNAME: ${LDAP_ADMIN_USERNAME}
+      LDAP_ADMIN_PASSWORD: ${LDAP_ADMIN_PASSWORD}
+      #BITNAMI_DEBUG: true
+      LDAP_CONFIGURE_PPOLICY: yes
+      LDAP_PPOLICY_HASH_CLEARTEXT: yes
+      LDAP_PORT_NUMBER: 389
+      LDAP_LDAPS_PORT_NUMBER: 636
+    volumes:
+      - '${LDAP_DIR}:/bitnami/openldap'
+      - './auth/seed.ldif:/ldifs/seed.ldif'
+    ports:
+      - 389:389
+      - 636:636
+  keycloak:
+    depends_on:
+      - openldap
+  keycloak-conf:
+    environment:
+      IMPORT_FILES_LOCATIONS: /config/openldap.json
+      LDAP_USERS_DN: ${LDAP_ROOT}
+      LDAP_BIND_DN: ${LDAP_ADMIN_DN}
+      LDAP_BIND_PASSWORD: ${LDAP_ADMIN_PASSWORD}
+      LDAP_CONNECTION_URL: ldap://openldap:389
+  phpldapadmin:
+    image: osixia/phpldapadmin:latest
+    environment:
+      TZ: '${TZ}'
+      PHPLDAPADMIN_LDAP_HOSTS: "openldap"
+      PHPLDAPADMIN_HTTPS: "false"
+    ports:
+      - "8082:80"
+    depends_on:
+      - openldap
