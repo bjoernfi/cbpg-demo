@@ -76,26 +76,20 @@ public final class PseudonymService {
     }
 
     /**
-     * Creates the input <username>_<password> and hashes it using the provided digest
+     * Creates the input and hashes it using the provided digest
      */
     private byte[] createInitialHash(String username, char[] password, MessageDigest digest) {
         var usernameBytes = username.getBytes(StandardCharsets.UTF_8);
         var passwordBytes = toBytes(password, StandardCharsets.UTF_8);
-        var delimiterBytes = "_".getBytes(StandardCharsets.UTF_8);
 
-        var plain = new byte[usernameBytes.length + delimiterBytes.length
-            + passwordBytes.length];
-
-        for (int i = 0; i < usernameBytes.length; i++) {
-            plain[i] = usernameBytes[i];
-        }
-
-        for (int i = 0; i < delimiterBytes.length; i++) {
-            plain[usernameBytes.length + i] = delimiterBytes[i];
-        }
+        var plain = new byte[usernameBytes.length + passwordBytes.length];
 
         for (int i = 0; i < passwordBytes.length; i++) {
-            plain[usernameBytes.length + delimiterBytes.length + i] = passwordBytes[i];
+            plain[i] = passwordBytes[i];
+        }
+
+        for (int i = 0; i < usernameBytes.length; i++) {
+            plain[passwordBytes.length + i] = usernameBytes[i];
         }
 
         return digest.digest(plain);

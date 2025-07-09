@@ -11,6 +11,9 @@ Innovation and Technology in Computer Science Education V. 1 (ITiCSE 2025),
 June 27-July 2, 2025, Nijmegen, Netherlands. ACM, New York, NY, USA,
 7 pages. https://doi.org/10.1145/3724363.3729046
 
+> [!NOTE]  
+> In the paper, we erronously wrote $H^{(c)}(id||pwd)$ instead of $H^{(c)}(pwd||id)$ (Definition 4.1). The code provided in this repository uses the corrected definition.
+
 The repository consists of the following components:
 
 * Sample configuration for **Keycloak** and **OpenLDAP**, serving as the authentication backend(s) for pseudonym generation. The configuration also includes a **Keycloak extension** that invalidates the access and refresh tokens of users who change their passwords.
